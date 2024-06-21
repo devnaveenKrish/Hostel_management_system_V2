@@ -1,0 +1,494 @@
+{% extends 'bases/adminbase.html' %}
+{% load static %}
+
+{% block extrastyle %}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/cylinder.js"></script>
+{% endblock extrastyle %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <div class="numbers">
+                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Users</p>
+                <h5 class="font-weight-bolder">
+                  {{user_count}}
+                </h5>
+                <p class="mb-0">
+                  <span class="text-success text-sm font-weight-bolder"></span>
+                  since yesterday
+                </p>
+              </div>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <div class="numbers">
+                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Staffs</p>
+                <h5 class="font-weight-bolder">
+                  {{staff_count}}
+                </h5>
+                <p class="mb-0">
+                  <span class="text-success text-sm font-weight-bolder"></span>
+                  since yesterday
+                </p>
+              </div>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
+                <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <div class="numbers">
+                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Students</p>
+                <h5 class="font-weight-bolder">
+                  {{ student_count }}
+                </h5>
+                <p class="mb-0">
+                  <span class="text-danger text-sm font-weight-bolder">-2%</span>
+                  since last quarter
+                </p>
+              </div>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
+                <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+      <div class="card">
+        <div class="card-body p-3">
+          <div class="row">
+            <div class="col-8">
+              <div class="numbers">
+                <p class="text-sm mb-0 text-uppercase font-weight-bold">House Owners</p>
+                <h5 class="font-weight-bolder">
+                    {{ house_owner }}
+                </h5>
+                <p class="mb-0">
+                  <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
+                </p>
+              </div>
+            </div>
+            <div class="col-4 text-end">
+              <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
+                <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-lg-7 mb-lg-0 mb-4">
+      <div class="card z-index-2 h-100">
+        <div class="card-header pb-0 pt-3 bg-transparent">
+          <h6 class="text-capitalize"> </h6>
+          <p class="text-sm mb-0">
+
+            <span class="font-weight-bold"></span>
+          </p>
+        </div>
+            <figure class="highcharts-figure">
+                <div id="container1"></div>
+            </figure>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card card-carousel overflow-hidden h-100 p-0">
+        <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
+          <div class="carousel-inner border-radius-lg h-100">
+            <div class="chart">
+            <div id="container-chart-2">
+                <figure class="highcharts-figure">
+                    <div id="container2"></div>
+
+                </figure>
+            </div>
+          </div>
+            <div class="carousel-item h-100"
+              style="background-image: url('{% static 'admin/img/carousel-2.jpg' %}');background-size: cover;">
+              <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
+                <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+                  <i class="ni ni-bulb-61 text-dark opacity-10"></i>
+                </div>
+                <h5 class="text-white mb-1">Faster way to create web pages</h5>
+                <p>That’s my skill. I’m not really specifically talented at anything except for the ability to learn.
+                </p>
+              </div>
+            </div>
+            <div class="carousel-item h-100"
+              style="background-image: url('{% static 'admin/img/carousel-3.jpg' %}');background-size: cover;">
+              <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
+                <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+                  <i class="ni ni-trophy text-dark opacity-10"></i>
+                </div>
+                <h5 class="text-white mb-1">Share with us your design tips!</h5>
+                <p>Don’t be afraid to be wrong because you can’t learn anything from a compliment.</p>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-lg-7 mb-lg-0 mb-4">
+      <div class="card ">
+        <div class="card-header pb-0 p-3">
+          Active Staffs
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center ">
+            <tbody>
+            {% for i in staff_table %}
+              <tr>
+                <td class="w-30">
+                  <div class="d-flex px-2 py-1 align-items-center">
+                    <div class="ms-4">
+                      <p class="text-xs font-weight-bold mb-0">Staff ID:</p>
+                      <h6 class="text-sm mb-0">{{ i.id }}</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-center">
+                    <p class="text-xs font-weight-bold mb-0">Staff Username:</p>
+                    <h6 class="text-sm mb-0">{{ i.username }}</h6>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-center">
+                    <p class="text-xs font-weight-bold mb-0">Staff Name:</p>
+                    <h6 class="text-sm mb-0">{{i.first_name}} {{ i.last_name }}</h6>
+                  </div>
+                </td>
+                <td class="align-middle text-sm">
+                  <div class="col text-center">
+                    <p class="text-xs font-weight-bold mb-0">Staff Email:</p>
+                    <h6 class="text-sm mb-0">{{ i.email }}</h6>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card">
+        <div class="card-header pb-0 p-3">
+          <h6 class="mb-0">Active House Owners</h6>
+        </div>
+
+        <div class="card-body p-3">
+          <ul class="list-group">
+              {% for i in hw_table %}
+            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+
+              <div class="d-flex align-items-center">
+
+                <div class="icon icon-shape icon-sm me-3 bg-gradient-dark shadow text-center">
+                  <i class="ni ni-mobile-button text-white opacity-10"></i>
+                </div>
+
+                <div class="d-flex flex-column">
+                  <h6 class="mb-1 text-dark text-sm">{{ i.user.first_name }} {{ i.user.last_name }}</h6>
+                  <span class="text-xs">{{ i.user.email }}</span>
+                </div>
+
+              </div>
+
+              <div class="d-flex">
+
+              </div>
+            </li>
+              {% endfor %}
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+    <script>
+
+    {#Chart 2#}
+
+    Highcharts.chart('container1', {
+    chart: {
+        type: 'pie',
+        options3d: {
+            enabled: true,
+            alpha: 45,
+            beta: 0
+        }
+    },
+    title: {
+        text: 'Propotion of Houses in each Streets',
+        align: 'left'
+    },
+    subtitle: {
+        text: 'Source: ' +
+            '<a href="https://www.counterpointresearch.com/global-smartphone-share/"' +
+            'target="_blank">Own source</a>',
+        align: 'left'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            depth: 35,
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}'
+            }
+        }
+    },
+    series: [{
+        type: 'pie',
+        name: 'Share',
+        data: [
+            {% for i in house_counts_by_street %}
+            ['{{ i.street__Street_name }}',{{ i.total_houses }}],
+            {% endfor %}
+        ]
+    }]
+});
+
+
+    {#chart-2#}
+
+    Highcharts.chart('container2', {
+    chart: {
+        type: 'cylinder',
+        options3d: {
+            enabled: true,
+            alpha: 15,
+            beta: 15,
+            depth: 50,
+            viewDistance: 25
+        }
+    },
+    title: {
+        text: 'Classification of range of Houses according to their rent price'
+    },
+    subtitle: {
+        text: 'Source: ' +
+            '<a href="https://www.fhi.no/en/id/infectious-diseases/coronavirus/daily-reports/daily-reports-COVID19/"' +
+            'target="_blank">FHI</a>'
+    },
+    xAxis: {
+        categories: ['0-10k', '10k-19k', '20k-29k', '30k-39k', '40k-49k', '50k-59k', '60k-69k', '70k-79k', '80k-89k', '90k+'],
+        title: {
+            text: 'Age groups'
+        },
+        labels: {
+            skew3d: true
+        }
+    },
+    yAxis: {
+        title: {
+            margin: 20,
+            text: 'Reported cases'
+        },
+        labels: {
+            skew3d: true
+        }
+    },
+    tooltip: {
+        headerFormat: '<b>Age: {point.x}</b><br>'
+    },
+    plotOptions: {
+        series: {
+            depth: 25,
+            colorByPoint: true
+        }
+    },
+    series: [{
+        data: {{house_rent.counts}},
+        name: 'Cases',
+        showInLegend: false
+    }]
+});
+
+    </script>
+    <style>
+
+
+
+{#Container 2 #}
+
+        #container1 {
+    height: 400px;
+}
+
+.highcharts-figure,
+.highcharts-data-table table {
+    min-width: 310px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+
+{#Chart 3#}
+
+Highcharts.chart('container2', {
+    chart: {
+        type: 'cylinder',
+        options3d: {
+            enabled: true,
+            alpha: 15,
+            beta: 15,
+            depth: 50,
+            viewDistance: 25
+        }
+    },
+    title: {
+        text: 'Number of confirmed COVID-19'
+    },
+    subtitle: {
+        text: 'Source: ' +
+            '<a href="https://www.fhi.no/en/id/infectious-diseases/coronavirus/daily-reports/daily-reports-COVID19/"' +
+            'target="_blank">FHI</a>'
+    },
+    xAxis: {
+        categories: ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90+'],
+        title: {
+            text: 'Age groups'
+        },
+        labels: {
+            skew3d: true
+        }
+    },
+    yAxis: {
+        title: {
+            margin: 20,
+            text: 'Reported cases'
+        },
+        labels: {
+            skew3d: true
+        }
+    },
+    tooltip: {
+        headerFormat: '<b>Age: {point.x}</b><br>'
+    },
+    plotOptions: {
+        series: {
+            depth: 25,
+            colorByPoint: true
+        }
+    },
+    series: [{
+        data: [95321, 169339, 121105, 136046, 106800, 58041, 26766, 14291,
+            7065, 3283],
+        name: 'Cases',
+        showInLegend: false
+    }]
+});
+
+
+    </style>
+
+
+{% endblock content %}

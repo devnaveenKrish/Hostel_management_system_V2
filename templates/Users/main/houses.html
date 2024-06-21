@@ -1,0 +1,183 @@
+{% extends 'bases/userbase.html' %}
+{% load static %}
+{% block content %}
+
+            <header class="site-header section-padding d-flex justify-content-center align-items-center">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-10 col-12">
+                            <h1>
+                                <span class="d-block text-primary">Now, listing properties of</span>
+                                <span class="d-block text-dark">{{ street.Street_name }}</span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            {% for house in houses%}
+            <section class="product-detail section-padding">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-6 col-12">
+                            <div class="product-thumb">
+                                <img src="{{ house.hs_image_2.url }}}" class="img-fluid product-image" alt="">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-12">
+                            <div class="product-info d-flex">
+                                <div>
+                                    <h2 class="product-title mb-0">{{ house.hs_number }}</h2>
+
+                                    <p class="product-p">{{house.hs_owner.first_name}} {{house.hs_owner.last_name}}</p>
+                                </div>
+
+                                <small class="product-price text-muted ms-auto mt-auto mb-5">Rs.{{house.hs_rent}}</small>
+                            </div>
+
+                            <div class="product-description">
+
+                                <strong class="d-block mt-4 mb-2">Description</strong>
+
+                                <p class="lead mb-5">{{house.hs_desc}}</p>
+                            </div>
+
+                            <div class="product-description">
+
+                                <strong class="d-block mt-4 mb-2">Address</strong>
+
+                                <p class="lead mb-5">{{house.hs_number}} , {{house.street.Street_name}} , {{house.hs_city}} <br> {{house.hs_state}} , {{house.hs_country}} <br> PIN : {{house.hs_pin}}</p>
+                            </div>
+                            <form role="form" action="{% url 'user_request' %}"  method="POST">
+                            {% csrf_token %}
+                            <div class="product-cart-thumb row">
+                                <div class="col-lg-6 col-12">
+                                    
+                                    <select name="sharing_type" class="form-select cart-form-select" id="inputGroupSelect01" required>
+                                        <option >Sharing Type</option>
+                                        <option value="1">Single sharing</option>
+                                        <option value="2">Double sharing</option>
+                                        <option value="3">Tripple sharing</option>
+                                    </select>
+                                </div>
+                                <input type="text" hidden name=user_id value="{{ request.user.id }}">
+                                <input type="text" hidden name=h_id value="{{ house.id }}">
+                                <input type="text" hidden name=street_id value="{{ house.street.id }}">
+
+                            <div class="col-lg-6 col-12 mt-4 mt-lg-0">
+                                    <button type="submit" class="btn custom-btn cart-btn">Send Request</button>
+                                    
+                            </div>
+                                </form>
+
+                                {% if house.hs_status %}
+                                <p>
+                                    <p style="color:green;" class="product-additional-link">Available</a></p>
+                                {% else %}
+                                <p>
+                                    <p="" style="color:red;" class="product-additional-link">Unavailable</a>
+                                </p>
+                                {% endif %}
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            {% endfor %}
+
+            <section class="related-product section-padding border-top">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-12">
+                            <h3 class="mb-5">You might also like</h3>
+                        </div>
+
+                        <div class="col-lg-4 col-12 mb-3">
+                            <div class="product-thumb">
+                                <a href="product-detail.html">
+                                    <img src="{% static 'users/images/product/evan-mcdougall-qnh1odlqOmk-unsplash.jpeg' %}" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <span class="product-alert me-auto">New arrival</span>
+
+                                    <a href="#" class="bi-heart-fill product-icon"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="product-detail.html" class="product-title-link">Tree pot</a>
+                                        </h5>
+
+                                        <p class="product-p">Original package design from house</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto mt-auto mb-5">$25</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-12 mb-3">
+                            <div class="product-thumb">
+                                <a href="product-detail.html">
+                                    <img src="{% static 'users/images/product/jordan-nix-CkCUvwMXAac-unsplash.jpeg' %}" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <span class="product-alert">Low Price</span>
+
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="product-detail.html" class="product-title-link">Fashion set</a>
+                                        </h5>
+
+                                        <p class="product-p">Costume package</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto mt-auto mb-5">$35</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-12">
+                            <div class="product-thumb">
+                                <a href="product-detail.html">
+                                    <img src="{% static 'users/images/product/nature-zen-3Dn1BZZv3m8-unsplash.jpeg' %}" class="img-fluid product-image" alt="">
+                                </a>
+
+                                <div class="product-top d-flex">
+                                    <a href="#" class="bi-heart-fill product-icon ms-auto"></a>
+                                </div>
+
+                                <div class="product-info d-flex">
+                                    <div>
+                                        <h5 class="product-title mb-0">
+                                            <a href="product-detail.html" class="product-title-link">Juice Drinks</a>
+                                        </h5>
+
+                                        <p class="product-p">Nature made another world</p>
+                                    </div>
+
+                                    <small class="product-price text-muted ms-auto mt-auto mb-5">$45</small>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        {% endblock %}

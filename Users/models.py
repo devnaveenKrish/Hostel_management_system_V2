@@ -1,0 +1,13 @@
+from django.db import models
+from django.contrib.auth.models import User
+from cadmin.models import House
+
+class User_Req(models.Model):
+    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    h_id = models.ForeignKey(House, on_delete=models.CASCADE, null=True, blank=True)
+    req_type = models.IntegerField(default=0)
+    req_accept_staff = models.ForeignKey(User, related_name='accept_staff_requests', on_delete=models.CASCADE, null=True, blank=True)
+    sharing_type = models.CharField(default=1, max_length=5)
+    req_status = models.BooleanField(default=1)
+
+
